@@ -1,0 +1,246 @@
+# ============================================================================
+# Python
+# ============================================================================
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================================================
+# Environment & Secrets (CRITICAL)
+# ============================================================================
+# Local environment files (may contain API keys, credentials)
+.env
+.env.local
+.env.*.local
+.env.dev
+.env.test
+.env.prod
+.env.vault
+.env.*.vault
+env.json
+secrets.json
+credentials.json
+config.local.py
+settings.local.py
+
+# API keys and credentials
+*.key
+*.pem
+*.p12
+*.pfx
+*.cert
+*.crt
+*.pub
+.ssh/
+~/.ssh/
+authorized_keys
+
+# ============================================================================
+# Virtual Environments
+# ============================================================================
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.Python
+
+# ============================================================================
+# IDE & Editor
+# ============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.sublime-project
+.sublime-workspace
+.project
+.pydevproject
+.settings/
+.classpath
+.c9/
+*.launch
+.tern-port
+.code-workspace
+*.iml
+*.iws
+*.ipr
+out/
+.gradle
+
+# ============================================================================
+# Build & Temporary
+# ============================================================================
+*.log
+logs/
+*.tmp
+*.temp
+tmp/
+temp/
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.cache
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ============================================================================
+# Data & Artifacts (Sensitive or Large)
+# ============================================================================
+# ChromaDB vector store (contains indexed documents)
+.chroma/
+chroma_data/
+
+# File uploads (may contain sensitive documents)
+uploads/
+uploads_temp/
+temp_uploads/
+
+# Generated outputs & reports
+outputs/
+results/
+reports/
+*.json  # Except those in repo root for config
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.dbm
+*.rdb
+
+# ============================================================================
+# Model & ML Caches (Large, system-specific)
+# ============================================================================
+# Ollama cache
+models/
+ollama_cache/
+.ollama/
+
+# Hugging Face models & cache
+.huggingface/
+huggingface_cache/
+hub/
+
+# PyTorch cache
+torch_cache/
+.torch/
+lightning_logs/
+
+# Sentence-transformers cache
+sentence-transformers/
+.cache/models/
+
+# ============================================================================
+# IDE-specific caches that may contain credentials
+# ============================================================================
+.ipynb_checkpoints/
+.jupyter/
+.ipython/
+.pylint.d/
+.pytest.ini.bak
+
+# ============================================================================
+# OS & System Files
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.AppleDouble
+.LSOverride
+*.stackdump
+
+# ============================================================================
+# Docker & Container
+# ============================================================================
+docker-compose.override.yml
+.dockerignore.bak
+docker-build-output.log
+
+# ============================================================================
+# Local Development & Testing
+# ============================================================================
+test-uploads/
+test-outputs/
+test-cache/
+local-data/
+sample-data/
+
+# ============================================================================
+# Screenshots & Media (temporary files)
+# ============================================================================
+Screenshot*
+Screen Shot*
+*.png  # If not needed in repo (be selective)
+*.jpg
+*.jpeg
+*.mp4
+*.mov
+
+# ============================================================================
+# Node (if used in future frontend)
+# ============================================================================
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+.eslintcache
+
+# ============================================================================
+# Package Manager
+# ============================================================================
+Pipfile.lock  # if using pipenv
+poetry.lock   # if using poetry (comment out if intentional)
+*.lock        # generic lock files
+
+# ============================================================================
+# Pre-commit & Git
+# ============================================================================
+.pre-commit-config.yaml.bak
+.git-hook-*.py
+GITIGNORE_SUMMARY.md
+GITIGNORE_SECURITY_AUDIT.md
+MODEL_MIGRATION_REPORT.md
+SCHEMA_VIOLATION_FIX.md

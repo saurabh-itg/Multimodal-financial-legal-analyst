@@ -1,0 +1,72 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  # One-shot init that pulls the open-source models the app expects.
+  # Idempotent: `ollama pull` is a no-op if the model already exists locally.
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: ollama-pull
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command: >-
+      "ollama pull qwen2.5-coder:7b &&
+       ollama pull minicpm-v &&
+       ollama pull nomic-embed-text"
+    restart: "no"
+
+  api:
+    build: .
+    image: multimodal-analyst:latest
+    container_name: analyst-api
+    env_file: .env
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434/v1
+    depends_on:
+      ollama:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.chroma:/app/.chroma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  ui:
+    image: multimodal-analyst:latest
+    container_name: analyst-ui
+    depends_on:
+      - api
+    env_file: .env
+    environment:
+      - API_URL=http://api:8000
+      - OLLAMA_BASE_URL=http://ollama:11434/v1
+    command: ["streamlit", "run", "app/ui/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+
+volumes:
+  ollama-models:
