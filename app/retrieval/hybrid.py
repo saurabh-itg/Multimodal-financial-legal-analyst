@@ -6,8 +6,8 @@ from __future__ import annotations
 
 import re
 import uuid
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable
 
 import chromadb
 from chromadb.config import Settings as ChromaSettings
@@ -106,7 +106,7 @@ class HybridRetriever:
         dense_scores: dict[str, float] = {}
         if dense_dists:
             mx = max(dense_dists) or 1.0
-            for cid, d in zip(dense_ids, dense_dists):
+            for cid, d in zip(dense_ids, dense_dists, strict=False):
                 dense_scores[cid] = 1.0 - (d / mx)  # higher = better
 
         # Sparse
@@ -116,7 +116,7 @@ class HybridRetriever:
             scores = self._bm25.get_scores(tokens)
             mx = max(scores) if len(scores) else 0.0
             if mx > 0:
-                for cid, sc in zip(self._bm25_ids, scores):
+                for cid, sc in zip(self._bm25_ids, scores, strict=False):
                     sparse_scores[cid] = float(sc) / mx
 
         all_ids = set(dense_scores) | set(sparse_scores)

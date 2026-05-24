@@ -7,7 +7,7 @@ import uuid
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -40,7 +40,7 @@ def health() -> dict:
 
 @app.post("/v1/analyze")
 async def analyze(
-    files: list[UploadFile] = File(..., description="PDF/XLSX/Image artifacts"),
+    files: list[UploadFile],
     mode: Literal["investment", "legal"] = Form("investment"),
     topic: str = Form(""),
 ) -> JSONResponse:

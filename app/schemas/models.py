@@ -1,7 +1,7 @@
 """Domain models: typed chunks, citations, structured analyst outputs."""
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field, field_validator
 # ---------------------------------------------------------------------------
 
 
-class ModalityType(str, Enum):
+class ModalityType(StrEnum):
     PDF_TEXT = "pdf_text"
     PDF_FIGURE = "pdf_figure"
     IMAGE = "image"

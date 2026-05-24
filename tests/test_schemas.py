@@ -1,3 +1,5 @@
+from pydantic import ValidationError
+
 from app.schemas import (
     Citation,
     Claim,
@@ -10,7 +12,7 @@ from app.schemas import (
 def test_claim_requires_citation():
     import pytest
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValidationError):
         Claim(statement="x", citations=[])
 
 
